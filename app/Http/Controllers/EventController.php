@@ -120,4 +120,12 @@ class EventController extends Controller
         
         return redirect ('/dashboard')->with('msg', 'Evento evento editado com sucesso!');
     }
+
+    public function joinEvent($id) {
+
+        $user = auth()->user();
+        $user->eventAsParticipant()->attach($id);
+        $event = Event::findOrFail($id);
+        return redirect ('/dashboard')->with('msg', 'Você confirmou presença evento ' . $event->title . '!');
+    }
 }
